@@ -68,7 +68,23 @@ function pickAGame() {
 
 // get data using fetch()
 function getData() {
-    fetch('/data').then(response => response.text()).then((data) => {
-        document.getElementById('data-container').innerText = data;
-    });
+  // fetch('/data').then(response => response.text()).then((data) => {
+  //     document.getElementById('data-container').innerText = data;
+  // });
+
+  fetch('/data').then(response => response.json()).then((data) => {
+    console.log(data);
+    const datacontainer = document.getElementById('data-container');
+    datacontainer.innerHTML = '';
+    for (i in data) {
+      datacontainer.appendChild(createListElement(data[i]));
+    }
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
