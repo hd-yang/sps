@@ -2,17 +2,36 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Huidong's Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
   <body>
     <div id="content">
-      <h1>My Portfolio</h1>
+      <h1>Huidong's Portfolio</h1>
       <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+      <p>
+        Hi, I'm Huidong Yang, a second-year graduate student of Zhejiang University. It's good to see you!
+        And meet my Chester!
+      </p>
+      <img src="/images/qst.jpg">
+      <p>
+        Now I study in the Computer Architecture Laboratory of Zhejiang University, and I do research projects related to operating systems. The curiosity about how things work within computers puts me on the path to learning computer science, and it's the reason why I'm interested in Systems Programming. I always want to learn new technologies, and solving problems and learning new knowledge can both make me extremely happy.
+      </p>
+      <p>
+        My github: <a href="https://github.com/hd-yang">hd-yang</a>
+      </p>
+      <hr>
+      <p>Click here to get a random quote:</p>
+      <div id="quote-container"></div>
+      <button onclick="addRandomQuote()">tell me</button>
+      <hr>
+      <p>
+        Do you like games? Check out the games I recommend to you:
+      </p>
+      <div id="game-container"></div>
+      <div id="game-img"></div>
+      <button onclick="pickAGame()">pick a game</button>
     </div>
   </body>
 </html>
