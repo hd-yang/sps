@@ -45,6 +45,7 @@ function addRandomQuote() {
     quoteContainer.innerText = quote;
 }
 
+// pick a game randomly, and show the name and a picture of the game.
 function pickAGame() {
     const games = [
         ["Don't Starve", "ds.jpg"],
@@ -63,4 +64,11 @@ function pickAGame() {
     const gameImg = document.getElementById('game-img');
     gameContainer.innerText = "Do you like <" + game[0] + "> ?";
     gameImg.innerHTML = img_url;
+}
+
+// get data using fetch()
+function getData() {
+    fetch('/data').then(response => response.text()).then((data) => {
+        document.getElementById('data-container').innerText = data;
+    });
 }
