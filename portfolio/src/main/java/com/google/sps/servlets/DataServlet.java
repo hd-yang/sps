@@ -36,18 +36,18 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     ArrayList<String> data = loadData();
     
-    // convert data to json
+    // Converts data to json
     Gson gson = new Gson();
     String json = gson.toJson(data);
 
-    // generate response
+    // Generates response
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
+    // Gets the input from the form.
     String comment = getParameter(request, "comment-input", "");
     String name = getParameter(request, "name-input", "");
     if (name.length() == 0) {
@@ -57,7 +57,7 @@ public class DataServlet extends HttpServlet {
       storeData(name, comment);
     }
 
-    // Redirect back to the HTML page.
+    // Redirects back to the HTML page.
     response.sendRedirect("/index.html");
   }
 

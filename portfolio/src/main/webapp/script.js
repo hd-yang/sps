@@ -45,7 +45,7 @@ function addRandomQuote() {
     quoteContainer.innerText = quote;
 }
 
-// pick a game randomly, and show the name and a picture of the game.
+// Picks a game randomly, and show the name and a picture of the game.
 function pickAGame() {
     const games = [
         ["Don't Starve", "ds.jpg"],
@@ -66,7 +66,7 @@ function pickAGame() {
     gameImg.innerHTML = img_url;
 }
 
-// get data using fetch()
+// Gets data using fetch()
 function getData() {
   fetch('/data').then(response => response.json()).then((data) => {
     console.log(data);
@@ -78,7 +78,7 @@ function getData() {
   });
 }
 
-/** Creates an <li> element containing text. */
+// Creates an <li> element containing text.
 function createListElement(text) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
