@@ -58,22 +58,22 @@ function pickAGame() {
     ];
 
     const game = games[Math.floor(Math.random() * games.length)];
-    const img_url = "<img src=\"/images/" + game[1] + "\">";
+    const imgElement = "<img src=\"/images/" + game[1] + "\">";
 
     const gameContainer = document.getElementById('game-container');
     const gameImg = document.getElementById('game-img');
     gameContainer.innerText = "Do you like <" + game[0] + "> ?";
-    gameImg.innerHTML = img_url;
+    gameImg.innerHTML = imgElement;
 }
 
 // Gets data using fetch()
 function getData() {
-  fetch('/data').then(response => response.json()).then((data) => {
-    console.log(data);
-    const datacontainer = document.getElementById('comments');
-    datacontainer.innerHTML = '';
-    for (i in data) {
-      datacontainer.appendChild(createListElement(data[i]));
+  fetch('/data').then(response => response.json()).then((comments) => {
+    console.log(comments);
+    const commentContainer = document.getElementById('comments');
+    commentContainer.innerHTML = '';
+    for (i in comments) {
+      commentContainer.appendChild(createListElement(comments[i]));
     }
   });
 }
