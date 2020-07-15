@@ -32,14 +32,6 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  // private ArrayList<String> data = new ArrayList<String>();
-
-  // @Override
-  // public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-  //   response.setContentType("text/html;");
-  //   response.getWriter().println("Hello Huidong Yang!");
-  // }
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     ArrayList<String> data = loadData();
