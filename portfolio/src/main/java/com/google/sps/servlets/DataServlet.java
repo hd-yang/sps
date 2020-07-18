@@ -58,12 +58,9 @@ public class DataServlet extends HttpServlet {
 
     // Gets the input from the form.
     String comment = getParameter(request, "comment-input", "");
-    String name = getParameter(request, "name-input", "");
-    if (name.length() == 0) {
-      name = "anonymous";
-    }
+
     if (comment.length() != 0) {
-      storeData(name, comment);
+      storeData(comment);
     }
 
     // Redirects back to the HTML page.
@@ -82,12 +79,11 @@ public class DataServlet extends HttpServlet {
     return value;
   }
 
-  private void storeData(String name, String comment) {
+  private void storeData(String comment) {
     UserService userService = UserServiceFactory.getUserService();
 
     long timestamp = System.currentTimeMillis();
     Entity commentEntity = new Entity("comment");
-    commentEntity.setProperty("name", name);
     commentEntity.setProperty("text", comment);
     commentEntity.setProperty("timestamp", timestamp);
     commentEntity.setProperty("email", userService.getCurrentUser().getEmail());
@@ -104,11 +100,10 @@ public class DataServlet extends HttpServlet {
 
     ArrayList<String> data = new ArrayList<String>();
     for (Entity entity : results.asIterable()) {
-      String name = (String) entity.getProperty("name");
       String text = (String) entity.getProperty("text");
       String email = (String) entity.getProperty("email");
 
-      data.add(name + "<" + email + ">: " + text);
+      data.add("<" + email + ">: " + text);
     }
 
     return data;

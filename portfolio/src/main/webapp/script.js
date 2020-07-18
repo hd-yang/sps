@@ -95,11 +95,9 @@ function checkLogin() {
     if (userInfo.isLoggedIn == 'yes') {
       formContainer.innerHTML =
           '<form action="/data" method="POST">'
-        +   '<p>Hello, ' + userInfo.email + '! <a href="' + userInfo.logoutUrl + '">Logout</a></p>'
+        +   '<p>Hello, "' + userInfo.email + '"! <a href="' + userInfo.logoutUrl + '">Logout</a></p>'
         +   '<p>Enter your comment:</p>'
         +   '<textarea name="comment-input"></textarea>'
-        +   '<p>Enter your name:</p>'
-        +   '<textarea name="name-input"></textarea>'
         +   '<br/>'
         +   '<input type="submit" />'
         + '</form>';
