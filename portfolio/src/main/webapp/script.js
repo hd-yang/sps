@@ -26,3 +26,61 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+function addRandomQuote() {
+    const quotes =
+    [
+        "Life was like a box of chocolates, you never know what you're gonna get.",
+        "Get busy living or get busy dying.",
+        "With great power there must come great responsibility.",
+        "May the Force be with you.",
+        "I'll be back.",
+        "You jump,I jump.",
+        "In case I don't see ya', good afternoon, good evening and goodnight."
+    ];
+
+    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+    const quoteContainer = document.getElementById('quote-container');
+    quoteContainer.innerText = quote;
+}
+
+// Picks a game randomly, and show the name and a picture of the game.
+function pickAGame() {
+    const games = [
+        ["Don't Starve", "ds.jpg"],
+        ["Dead Cells", "dss.jpg"],
+        ["Soul Knight", "yqqs.jpg"],
+        ["Hollow Knight", "hk.jpg"],
+        ["Terraria", "tlry.jpg"],
+        ["Brawl Stars", "bs.jpg"],
+        ["Ori and the Blind Forest", "ori.jpg"]
+    ];
+
+    const game = games[Math.floor(Math.random() * games.length)];
+    const imgElement = "<img src=\"/images/" + game[1] + "\">";
+
+    const gameContainer = document.getElementById('game-container');
+    const gameImg = document.getElementById('game-img');
+    gameContainer.innerText = "Do you like <" + game[0] + "> ?";
+    gameImg.innerHTML = imgElement;
+}
+
+// Gets data using fetch()
+function getData() {
+  fetch('/data').then(response => response.json()).then((comments) => {
+    console.log(comments);
+    const commentContainer = document.getElementById('comments');
+    commentContainer.innerHTML = '';
+    for (i in comments) {
+      commentContainer.appendChild(createListElement(comments[i]));
+    }
+  });
+}
+
+// Creates an <li> element containing text.
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
