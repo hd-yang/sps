@@ -27,6 +27,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -47,6 +49,13 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // If the user is not logged in, redirects back to the login page.
+    UserService userService = UserServiceFactory.getUserService();
+    if (!userService.isUserLoggedIn()) {
+      response.sendRedirect(userService.createLoginURL("/index.html"));
+      return;
+    }
+
     // Gets the input from the form.
     String comment = getParameter(request, "comment-input", "");
     String name = getParameter(request, "name-input", "");
@@ -74,11 +83,14 @@ public class DataServlet extends HttpServlet {
   }
 
   private void storeData(String name, String comment) {
+    UserService userService = UserServiceFactory.getUserService();
+
     long timestamp = System.currentTimeMillis();
     Entity commentEntity = new Entity("comment");
     commentEntity.setProperty("name", name);
     commentEntity.setProperty("text", comment);
     commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty("email", userService.getCurrentUser().getEmail());
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
@@ -94,8 +106,9 @@ public class DataServlet extends HttpServlet {
     for (Entity entity : results.asIterable()) {
       String name = (String) entity.getProperty("name");
       String text = (String) entity.getProperty("text");
+      String email = (String) entity.getProperty("email");
 
-      data.add(name + ": " + text);
+      data.add(name + "<" + email + ">: " + text);
     }
 
     return data;

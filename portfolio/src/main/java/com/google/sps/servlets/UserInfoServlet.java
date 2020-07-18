@@ -26,6 +26,7 @@ public class UserInfoServlet extends HttpServlet {
     }else {
       userInfo.put("isLoggedIn", "yes");
       userInfo.put("logoutUrl", userService.createLogoutURL("/index.html"));
+      userInfo.put("email", userService.getCurrentUser().getEmail());
 
       // Gets user's info from datastore.
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -36,7 +37,6 @@ public class UserInfoServlet extends HttpServlet {
       PreparedQuery results = datastore.prepare(query);
       Entity entity = results.asSingleEntity();
       if (entity != null) {
-        userInfo.put("email", (String) entity.getProperty("email"));
         userInfo.put("userName", (String) entity.getProperty("userName"));
       }
     }
