@@ -72,10 +72,8 @@ public final class FindMeetingQuery {
   // Checks if there is a same attendee in two events.
   private boolean conflict(Collection<String> attendeesA, Collection<String> attendeesB) {
     for (String a : attendeesA) {
-      for (String b : attendeesB) {
-        if (a.equals(b)) {
-          return true;
-        }
+      if (attendeesB.contains(a)) {
+        return true;
       }
     }
     return false;
