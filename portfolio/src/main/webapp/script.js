@@ -84,3 +84,32 @@ function createListElement(text) {
   liElement.innerText = text;
   return liElement;
 }
+
+// Fetches the login status from the servlet.
+// If the user is logged in, show the comment form.
+// If the user is not logged in, display a login link.
+function checkLogin() {
+  fetch('/userinfo').then(response => response.json()).then((userInfo) => {
+    console.log(userInfo);
+    const formContainer = document.getElementById('form-container');
+    if (userInfo.isLoggedIn == true) {
+      formContainer.innerHTML =
+          '<form action="/data" method="POST">'
+        +   '<p>Hello, "' + userInfo.email + '"! <a href="' + userInfo.logoutUrl + '">Logout</a></p>'
+        +   '<p>Enter your comment:</p>'
+        +   '<textarea name="comment-input"></textarea>'
+        +   '<br/>'
+        +   '<input type="submit" />'
+        + '</form>';
+    }else {
+      formContainer.innerHTML =
+        '<p><a href="' + userInfo.loginUrl + '">Login</a> to leave comments.</p>';
+    }
+  });
+}
+
+// Calls functions when body is loaded.
+function load() {
+  getData();
+  checkLogin();
+}
