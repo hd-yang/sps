@@ -11,22 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.io.IOException;
 
+class UserInfo {
+  Boolean isLoggedIn;
+  String loginUrl;
+  String logoutUrl;
+  String email;
+  String userName;
+}
+
 @WebServlet("/userinfo")
 public class UserInfoServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Map<String, String> userInfo = new HashMap<String, String>();
-
     // Gets user's info.
     UserService userService = UserServiceFactory.getUserService();
+    UserInfo userInfo = new UserInfo();
     if (!userService.isUserLoggedIn()) {
-      userInfo.put("isLoggedIn", "no");
-      userInfo.put("loginUrl", userService.createLoginURL("/index.html"));
+      userInfo.isLoggedIn = false;
+      userInfo.loginUrl = userService.createLoginURL("/index.html");
     }else {
-      userInfo.put("isLoggedIn", "yes");
-      userInfo.put("logoutUrl", userService.createLogoutURL("/index.html"));
-      userInfo.put("email", userService.getCurrentUser().getEmail());
+      userInfo.isLoggedIn = true;
+      userInfo.logoutUrl = userService.createLogoutURL("/index.html");
+      userInfo.email = userService.getCurrentUser().getEmail();
 
       // Gets user's info from datastore.
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -37,7 +44,7 @@ public class UserInfoServlet extends HttpServlet {
       PreparedQuery results = datastore.prepare(query);
       Entity entity = results.asSingleEntity();
       if (entity != null) {
-        userInfo.put("userName", (String) entity.getProperty("userName"));
+        userInfo.userName = (String) entity.getProperty("userName");
       }
     }
 

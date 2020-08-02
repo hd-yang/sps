@@ -92,7 +92,7 @@ function checkLogin() {
   fetch('/userinfo').then(response => response.json()).then((userInfo) => {
     console.log(userInfo);
     const formContainer = document.getElementById('form-container');
-    if (userInfo.isLoggedIn == 'yes') {
+    if (userInfo.isLoggedIn == true) {
       formContainer.innerHTML =
           '<form action="/data" method="POST">'
         +   '<p>Hello, "' + userInfo.email + '"! <a href="' + userInfo.logoutUrl + '">Logout</a></p>'
